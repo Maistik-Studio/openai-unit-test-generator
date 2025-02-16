@@ -1,0 +1,88 @@
+{
+  "name": "openai-unit-test-generator",
+  "displayName": "OpenAI unit test generator",
+  "publisher": "MaistikStudio",
+  "description": "Use OpenAi to instantly generate unit tests in any language",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Maistik-Studio/openai-unit-test-generator.git"
+  },
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.76.0"
+  },
+  "icon": "images/logo.png",
+  "categories": [
+    "Programming Languages",
+    "Testing",
+    "Debuggers",
+    "Machine Learning"
+  ],
+  "activationEvents": [],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "openai-unit-test-generator.generateTests",
+        "title": "Generate Unit Tests for Active File"
+      },
+      {
+        "command": "openai-unit-test-generator.setApiKey",
+        "title": "Set OpenAI API Key"
+      }
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "OpenAI Unit Test Generator",
+      "properties": {
+        "openai-unit-test-generator.apiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Your OpenAI API Key"
+        },
+        "openai-unit-test-generator.mainModel": {
+          "type": "string",
+          "default": "o3-mini",
+          "description": "Main OpenAI model to use for generating unit tests"
+        },
+        "openai-unit-test-generator.fallbackModel": {
+          "type": "string",
+          "default": "o3-mini",
+          "description": "Fallback OpenAI model to use if the main model fails"
+        }
+      }
+    },
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "openai-unit-test-generator.generateTests",
+          "when": "resourceScheme == 'file'",
+          "group": "z_commands"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "yarn run compile && yarn run lint",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "dependencies": {
+    "openai": "^4.85.1"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.76.0",
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@typescript-eslint/eslint-plugin": "^8.24.0",
+    "@typescript-eslint/parser": "^8.24.0",
+    "eslint": "^9.20.1",
+    "typescript": "^5.7.3",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
+}
